@@ -5,11 +5,18 @@
     <body>
         <canvas id="myCanvas" width="300" height="300"></canvas>
         <script>
-            var c = document.getElementById("myCanvas");
-            var ctx = c.getContext("2d");
+            let c = document.getElementById("myCanvas");
+            let ctx = c.getContext("2d");
+            let px = ctx.createImageData(10,10);
+            let d = px.data;
+            d[0] = 100;
+            d[1] = 0;
+            d[2] = 0;
+            d[3] = 20;
             ctx.moveTo(0, 0);
             ctx.lineTo(200, 100);
             ctx.stroke();
+            ctx.putImageData(px, 200, 100);
         </script>
     </body>
 </html>
