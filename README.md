@@ -1,2 +1,2 @@
-# demoscene
-2D computer graphics algorithms
+# Some demoscene algorithms
+- [Diamond-square](./diamond-square-algorithm.html)
