@@ -7,24 +7,36 @@
         <script>
             let c = document.getElementById("myCanvas");
             let ctx = c.getContext("2d");
-            let w = 50;
-            let h = 100;
+            let n = 8;
+            let w = Math.pow(2, n)+1;
+            let h = w;
             let px = ctx.createImageData(w,h);
             let d = px.data;
-            for(let y = 0; y < h; y++){
-                for(let x = 0; x < w; x++){
-                    let ix = 4 * (x + y * w);
-                    if(ix % 17 == 0){
-                        d[ix] = 255;
-                        d[ix+1] = 0;
-                        d[ix+2] = 0;
-                        d[ix+3] = 255;
-                    }
-                }
-            }
-            ctx.moveTo(0, 0);
-            ctx.lineTo(200, 10);
-            ctx.putImageData(px, 10, 10);
+            console.log(d);
+            const pix = (x, y) => 4 * (x + y * w);
+            const square = (xc, yc, w, h) => {
+                let ix1 = pix(xc-(w-1)/2, yc-(h-1)/2);
+                let ix2 = pix(xc-(w-1)/2, yc+(h-1)/2);
+                let ix3 = pix(xc+(w-1)/2, yc-(h-1)/2);
+                let ixc = pix(xc, yc);
+                d[ixc] = Math.floor((d[ix1]+d[ix2]+d[ix3]+d[ix4])/4);
+                d[ixc+1] = Math.floor((d[ix1+1]+d[ix2+1]+d[ix3+1]+d[ix4+1])/4);
+                d[ixc+2] = Math.floor((d[ix1+2]+d[ix2+2]+d[ix3+2]+d[ix4+2])/4);
+                d[ixc+3] = 255;
+            };
+
+            // for(let y = 0; y < h; y++){
+            //     for(let x = 0; x < w; x++){
+            //         let ix = 4 * (x + y * w);
+            //         if(ix % 1 == 0){
+            //             d[ix] = 255;
+            //             d[ix+1] = 0;
+            //             d[ix+2] = 0;
+            //             d[ix+3] = 255;
+            //         }
+            //     }
+            // }
+            ctx.putImageData(px, 0, 0);
             ctx.stroke();
         </script>
     </body>
