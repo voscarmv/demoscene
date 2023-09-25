@@ -14,15 +14,39 @@
             let d = px.data;
             console.log(d);
             const pix = (x, y) => 4 * (x + y * w);
-            const square = (xc, yc, w, h) => {
-                let ix1 = pix(xc-(w-1)/2, yc-(h-1)/2);
-                let ix2 = pix(xc-(w-1)/2, yc+(h-1)/2);
-                let ix3 = pix(xc+(w-1)/2, yc-(h-1)/2);
-                let ixc = pix(xc, yc);
-                d[ixc] = Math.floor((d[ix1]+d[ix2]+d[ix3]+d[ix4])/4);
-                d[ixc+1] = Math.floor((d[ix1+1]+d[ix2+1]+d[ix3+1]+d[ix4+1])/4);
-                d[ixc+2] = Math.floor((d[ix1+2]+d[ix2+2]+d[ix3+2]+d[ix4+2])/4);
-                d[ixc+3] = 255;
+            const square = (x1, y1, w) => {
+                let ix1 = pix(x1, y1);
+                let ix2 = pix(x1, y1+w-1);
+                let ix3 = pix(x1+w-1, y1);
+                let ix4 = pix(x1+w-1, y1+w-1);
+                let ixc = pix(x1+(w-1)/2, y1+(w-1)/2);
+                if(d[ixc+3] === 0){
+                    d[ixc] = Math.floor((d[ix1]+d[ix2]+d[ix3]+d[ix4])/4);
+                    d[ixc+1] = Math.floor((d[ix1+1]+d[ix2+1]+d[ix3+1]+d[ix4+1])/4);
+                    d[ixc+2] = Math.floor((d[ix1+2]+d[ix2+2]+d[ix3+2]+d[ix4+2])/4);
+                    d[ixc+3] = 255;
+                }
+            };
+            const diamond = (x1, y1, w) => {
+                let ix = [[0, 0], [0, 0], [0, 0], [0, 0]];
+                let half = (w-1)/2;
+                ix[0] = [x1+half, y1];
+                ix[1] = [x1, y1+half];
+                ix[2] = [x1+half, w-1];
+                ix[3] = [w-1, y1+half];
+                for(let i = 0; i < ix.length; i++){
+                    let c = 0;
+                    let s = 0;
+                    if(
+                        ix[i][0]-half >= 0 &&
+                        ix[i][0]+half < x1+w &&
+                        ix[i][1]-half >= 0 &&
+                        ix[i][1]+half < y1+w
+                    ){
+                        c++;
+                        let ix1 = pix()
+                    }
+                }
             };
 
             // for(let y = 0; y < h; y++){
