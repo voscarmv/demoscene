@@ -27,7 +27,7 @@
                     d[ixc+3] = 255;
                 }
             };
-            const diamond = (x1, y1, w) => {
+            const diamond = (x1, y1, w, wg) => {
                 let ix = [[0, 0], [0, 0], [0, 0], [0, 0]];
                 let half = (w-1)/2;
                 ix[0] = [x1+half, y1];
@@ -37,15 +37,29 @@
                 for(let i = 0; i < ix.length; i++){
                     let c = 0;
                     let s = 0;
-                    if(
-                        ix[i][0]-half >= 0 &&
-                        ix[i][0]+half < x1+w &&
-                        ix[i][1]-half >= 0 &&
-                        ix[i][1]+half < y1+w
-                    ){
+                    let x = 0, y = 1;
+                    if(ix[i][x]-half >= 0){
                         c++;
-                        let ix1 = pix()
+                        let ix1 = pix(ix[i][x]-half, ix[i][y]);
+                        s += d[ix1];
                     }
+                    if(ix[i][x]+half < wg){
+                        c++;
+                        let ix2 = pix(ix[i][x]+half, ix[i][y]);
+                        s += d[ix2];
+                    }
+                    if(ix[i][y]-half >= 0){
+                        c++;
+                        let ix3 = pix(ix[i][x], ix[i][y]-half);
+                        s += d[ix3];
+                    }
+                    if(ix[i][y]+half < wg){
+                        c++;
+                        let ix4 = pix(ix[i][x], ix[i][y]+half);
+                        s += d[ix4];
+                    }
+                    d[ix[i]] = Math.floor(s/c);
+                    d[ix[i]+3] = 255;
                 }
             };
 
