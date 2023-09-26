@@ -13,7 +13,7 @@
             let h = w;
             let px = ctx.createImageData(w,h);
             let d = px.data;
-            console.log(d);
+            // console.log(d);
             const pix = (x, y) => 4 * (x + y * w);
 
             const square = (x1, y1, w, r) => {
@@ -47,25 +47,25 @@
                         c++;
                         let ix1 = pix(ix[i][x]-half, ix[i][y]);
                         s += d[ix1];
-                        console.log(s);
+                        // console.log(s);
                     }
                     if(ix[i][x]+half < wg){
                         c++;
                         let ix2 = pix(ix[i][x]+half, ix[i][y]);
                         s += d[ix2];
-                        console.log(s);
+                        // console.log(s);
                     }
                     if(ix[i][y]-half >= 0){
                         c++;
                         let ix3 = pix(ix[i][x], ix[i][y]-half);
                         s += d[ix3];
-                        console.log(s);
+                        // console.log(s);
                     }
                     if(ix[i][y]+half < wg){
                         c++;
                         let ix4 = pix(ix[i][x], ix[i][y]+half);
                         s += d[ix4];
-                        console.log(s);
+                        // console.log(s);
                     }
                     //console.log(`dia ${ix[i][x]}, ${ix[i][y]}`);                
                     let disturb = Math.floor(Math.random()*r)-r/2;
@@ -84,10 +84,10 @@
 
             let r = 1024;
             for(let size = w; size > 2; size = (size - 1)/2+1, r /= 2){
-                console.log(`iteration size ${size}`)
+                // console.log(`iteration size ${size}`)
                 for(let y = 0; y < w-1; y += size-1){
                     for(let x = 0; x < w-1; x += size-1){
-                        console.log(`x ${x} y ${y}`)
+                        //console.log(`x ${x} y ${y}`)
                         square(x, y, size, r);
                         diamond(x, y, size, w, r);
                     }
