@@ -16,22 +16,22 @@
             // console.log(d);
             const pix = (x, y) => 4 * (x + y * w);
 
-            const square = (x1, y1, w, r) => {
+            const square = (x1, y1, w, r, img) => {
                 let ix1 = pix(x1, y1);
                 let ix2 = pix(x1, y1+w-1);
                 let ix3 = pix(x1+w-1, y1);
                 let ix4 = pix(x1+w-1, y1+w-1);
                 let ixc = pix(x1+(w-1)/2, y1+(w-1)/2);
                // console.log(`${x1+(w-1)/2}, ${y1+(w-1)/2}`);
-                if(d[ixc+3] === 0){
+                if(img.data[ixc+3] === 0){
                     let disturb = Math.floor(Math.random()*r)-r/2;
-                    d[ixc] = Math.abs((Math.floor((d[ix1]+d[ix2]+d[ix3]+d[ix4])/4)+disturb)%256);
-                    // d[ixc+1] = Math.floor((d[ix1+1]+d[ix2+1]+d[ix3+1]+d[ix4+1])/4);
-                    // d[ixc+2] = Math.floor((d[ix1+2]+d[ix2+2]+d[ix3+2]+d[ix4+2])/4);
-                    d[ixc+3] = 255;
+                    img.data[ixc] = Math.abs((Math.floor((img.data[ix1]+img.data[ix2]+img.data[ix3]+img.data[ix4])/4)+disturb)%256);
+                    // img.data[ixc+1] = Math.floor((img.data[ix1+1]+img.data[ix2+1]+img.data[ix3+1]+img.data[ix4+1])/4);
+                    // img.data[ixc+2] = Math.floor((img.data[ix1+2]+img.data[ix2+2]+img.data[ix3+2]+img.data[ix4+2])/4);
+                    img.data[ixc+3] = 255;
                 }
             };
-            const diamond = (x1, y1, w, wg, r) => {
+            const diamond = (x1, y1, w, wg, r, img) => {
                 //console.log(`begin diamond at ${x1}, ${y1}`);
                 let ix = [[0, 0], [0, 0], [0, 0], [0, 0]];
                 let half = (w-1)/2;
@@ -46,41 +46,41 @@
                     if(ix[i][x]-half >= 0){
                         c++;
                         let ix1 = pix(ix[i][x]-half, ix[i][y]);
-                        s += d[ix1];
+                        s += img.data[ix1];
                         // console.log(s);
                     }
                     if(ix[i][x]+half < wg){
                         c++;
                         let ix2 = pix(ix[i][x]+half, ix[i][y]);
-                        s += d[ix2];
+                        s += img.data[ix2];
                         // console.log(s);
                     }
                     if(ix[i][y]-half >= 0){
                         c++;
                         let ix3 = pix(ix[i][x], ix[i][y]-half);
-                        s += d[ix3];
+                        s += img.data[ix3];
                         // console.log(s);
                     }
                     if(ix[i][y]+half < wg){
                         c++;
                         let ix4 = pix(ix[i][x], ix[i][y]+half);
-                        s += d[ix4];
+                        s += img.data[ix4];
                         // console.log(s);
                     }
                     //console.log(`dia ${ix[i][x]}, ${ix[i][y]}`);                
                     let disturb = Math.floor(Math.random()*r)-r/2;
-                    d[pix(ix[i][x], ix[i][y])] = Math.abs((Math.floor(s/c)+disturb)%256);
-                    d[pix(ix[i][x], ix[i][y])+3] = 255;
+                    img.data[pix(ix[i][x], ix[i][y])] = Math.abs((Math.floor(s/c)+disturb)%256);
+                    img.data[pix(ix[i][x], ix[i][y])+3] = 255;
                 }
             };
-            d[pix(0,0)] = Math.floor(Math.random()*255);
-            d[pix(0,0)+3] = 255;
-            d[pix(0,h-1)] = Math.floor(Math.random()*255);
-            d[pix(0,h-1)+3] = 255;
-            d[pix(w-1,0)] = Math.floor(Math.random()*255);
-            d[pix(w-1,0)+3] = 255;
-            d[pix(w-1,h-1)] = Math.floor(Math.random()*255);
-            d[pix(w-1,h-1)+3] = 255;
+            px.data[pix(0,0)] = Math.floor(Math.random()*255);
+            px.data[pix(0,0)+3] = 255;
+            px.data[pix(0,h-1)] = Math.floor(Math.random()*255);
+            px.data[pix(0,h-1)+3] = 255;
+            px.data[pix(w-1,0)] = Math.floor(Math.random()*255);
+            px.data[pix(w-1,0)+3] = 255;
+            px.data[pix(w-1,h-1)] = Math.floor(Math.random()*255);
+            px.data[pix(w-1,h-1)+3] = 255;
 
             let r = 1024;
             for(let size = w; size > 2; size = (size - 1)/2+1, r /= 2){
@@ -88,8 +88,8 @@
                 for(let y = 0; y < w-1; y += size-1){
                     for(let x = 0; x < w-1; x += size-1){
                         //console.log(`x ${x} y ${y}`)
-                        square(x, y, size, r);
-                        diamond(x, y, size, w, r);
+                        square(x, y, size, r, px);
+                        diamond(x, y, size, w, r, px);
                     }
                 }
             }
