@@ -11,8 +11,8 @@
             let source = document.getElementById("source");
             code.innerHTML = source.innerHTML;
             let ctx = c.getContext("2d");
-            let w = 200;
-            let h = 300;
+            let w = c.width;
+            let h = c.height;
             let px = ctx.createImageData(w,h);
             let d = px.data;
             const pix = (x, y) => 4 * (x + y * w);
