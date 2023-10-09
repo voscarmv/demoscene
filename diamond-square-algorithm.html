@@ -4,9 +4,13 @@
     </head>
     <body>
         <canvas id="myCanvas" width="300" height="300"></canvas>
-        <script>
+        <textarea id="code"></textarea>
+        <script id="source">
             // Threadable / Parallel approach? Perhaps.
             let c = document.getElementById("myCanvas");
+            let code = document.getElementById("code");
+            let source = document.getElementById("source");
+            code.innerHTML = source.innerHTML;
             let ctx = c.getContext("2d");
             let n = 8;
             let w = Math.pow(2, n)+1;
