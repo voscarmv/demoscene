@@ -4,8 +4,12 @@
     </head>
     <body>
         <canvas id="myCanvas" width="400" height="200"></canvas>
-        <script>
+        <textarea rows="30" cols="120" id="code"></textarea>
+        <script id="source">
             let c = document.getElementById("myCanvas");
+            let code = document.getElementById("code");
+            let source = document.getElementById("source");
+            code.innerHTML = source.innerHTML;
             let ctx = c.getContext("2d");
             let w = c.width;
             let h = c.height;
